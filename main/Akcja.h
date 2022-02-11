@@ -24,11 +24,12 @@ public:
 				cout << "Wpisz numer napoju: ";
 				int x;
 				cin >> x;
-
+				
 				if (!cin) { throw error; }
 				if (x < 0) { throw - 1; }
 
 				cena = a->podaj_cene(x);
+				if (cena == 0) { throw 0.5; }
 
 				cout << "Cena za wybrany napoj: " << cena << endl;
 
@@ -59,6 +60,11 @@ public:
 					again = 1;
 				else
 					again = 0;
+			}
+			catch (double)
+			{
+				cout << "Nie ma takiego napoju." << endl;
+				again = 1;
 			}
 			catch (...)
 			{

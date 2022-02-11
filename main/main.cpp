@@ -3,7 +3,7 @@
 
 int main()
 {
-    cout << "Automat.";
+    cout << "Automat";
     Akcja a;
     while (a.get_stan())
     {

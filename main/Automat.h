@@ -1,5 +1,6 @@
 #pragma once
 #include "Napoj.h"
+#include "SortujID.h"
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -11,7 +12,7 @@ class Automat
 public:
 	Automat() : l_napoje{ 0 }
 	{
-		uzupelnij(make_unique<CocaCola>(1));
+		uzupelnij(make_unique<CocaCola>(12));
 		uzupelnij(make_unique<CocaCola>(2));
 		uzupelnij(make_unique<Pepsi>(3));
 		uzupelnij(make_unique<Pepsi>(4));
@@ -37,15 +38,16 @@ public:
 	const double podaj_cene(int n)
 	{
 		double k = 0;
-		for_each(napoje.begin(), napoje.end(), [&](const auto& i)
+		sortujID(napoje.begin(), napoje.end());
+		for(auto& i : napoje)
+		{
+			int m = i->getid();
+			if (n == m)
 			{
-				int m = i->getid();
-				if (m == n)
-				{
-					k = i->getcena();
-				}
-				return k;
-			});
+				k = i->getcena();
+				break;
+			}
+		}
 		return k;
 	}
 
@@ -103,5 +105,6 @@ public:
 private:
 	vector < unique_ptr <Napoj> >napoje;
 	int nominal[9] = {500,200,100,50,20,10,5,2,1};
+	int dostepnemiejsce=20;
 	int l_napoje;
 };
